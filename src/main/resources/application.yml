@@ -1,0 +1,14 @@
+springbootwebfluxjjwt:
+    password:
+        encoder:
+            secret: AZJHI456138AZIHSNQS84321ESK1
+            iteration: 15
+            keylength: 256
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: jwt_tutorial
+  main:
+    allow-bean-definition-overriding: true

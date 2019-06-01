@@ -1,4 +1,7 @@
 springbootwebfluxjjwt:
+    jjwt:
+      secret: EmCzmxAhrnZAzcc8opiQRBb5HSlhpG6Ep4kdDkLs0eLpFjhRy65kicPdXapg_c6vocV4TXoKHmMOeOLJOPy-4w
+      expiration: 28800
     password:
         encoder:
             secret: AZJHI456138AZIHSNQS84321ESK1

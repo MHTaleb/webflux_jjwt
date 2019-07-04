@@ -34,11 +34,11 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
     public Mono<SecurityContext> load(ServerWebExchange swe) {
         
         ServerHttpRequest request = swe.getRequest();
-        
+        System.out.println("trying to authenticate");
         String authorizationHeaderContent = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
         if( authorizationHeaderContent !=null &&  !authorizationHeaderContent.isEmpty() &&  authorizationHeaderContent.startsWith("Bearer ")){
-
+        		System.out.println("gettin bearer token");
                 String token = authorizationHeaderContent.substring(7);
 
                 Authentication authentication = new UsernamePasswordAuthenticationToken(token, token);

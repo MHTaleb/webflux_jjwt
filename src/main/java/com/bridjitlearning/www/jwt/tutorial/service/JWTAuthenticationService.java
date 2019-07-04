@@ -44,9 +44,10 @@ public class JWTAuthenticationService implements AuthenticationService {
 
     @Override
     public Mono<ResponseEntity<?>> logout(String token) {
-        return Mono.fromRunnable(()->{
+        Mono.fromRunnable(()->{
             resignTokenMemory.put(token);
-        }).justOrEmpty(ResponseEntity.status(HttpStatus.OK).build());
+        });
+		return Mono.justOrEmpty(ResponseEntity.status(HttpStatus.OK).build());
     }
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.bridjitlearning.www.jwt.tutorial.config.jwt.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.BeanDefinitionDsl.Role;
@@ -13,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+
+import com.bridjitlearning.www.jwt.tutorial.config.jwt.JWTUtil;
 
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
@@ -31,16 +32,21 @@ public class JWTReactiveAuthenticationManager implements ReactiveAuthenticationM
     public Mono<Authentication> authenticate(Authentication authentication) {
 
         String authToken = authentication.getCredentials().toString();
-
+        
+        System.out.println("auth begin");
+        
         String username;
         try {
             username = jwtUtil.getUsernameFromToken(authToken);
+            System.out.println("getting username");
         } catch (Exception e) {
             username = null;
         }
-
-        if (username != null && jwtUtil.validateToken(authToken)) {
+        System.out.println(username);
+        System.out.println(authToken);
+        if (jwtUtil.validateToken(authToken)) {
             Claims claims = jwtUtil.getAllClaimsFromToken(authToken);
+            System.out.println("getting claims");
             
             List<String> roleNames = claims.get("role",List.class);
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();

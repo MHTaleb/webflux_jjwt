@@ -27,14 +27,14 @@ public class WebSecurityConfig{
         return http.exceptionHandling()
         .authenticationEntryPoint((swe , e) -> {
             return Mono.fromRunnable(()->{
-                System.out.println( "user trying to access unauthorized api end points : "+
+                System.out.println( "authenticationEntryPoint user trying to access unauthorized api end points : "+
                                     swe.getRequest().getRemoteAddress()+
                                     " in "+swe.getRequest().getPath());
                 swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             });
         }).accessDeniedHandler((swe, e) -> {
             return Mono.fromRunnable(()->{
-                System.out.println( "user trying to access unauthorized api end points : "+
+                System.out.println( "accessDeniedHandler user trying to access unauthorized api end points : "+
                                     swe.getPrincipal().block().getName()+
                                     " in "+swe.getRequest().getPath());
                 swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);                    
@@ -48,7 +48,7 @@ public class WebSecurityConfig{
         .securityContextRepository(securityContext)
         .authorizeExchange()
         .pathMatchers(HttpMethod.OPTIONS).permitAll()
-        .pathMatchers("/login").permitAll()
+        .pathMatchers("/auth/login").permitAll()
         .anyExchange().authenticated()
         .and()
         .build();
